@@ -78,6 +78,7 @@ var Application: String;
     Year, Month, Day, Hour, Minute, Second, Milisecond: Word;
     SYear, SMonth, SDay, SHour, SMinute, SSecond, SMilisecond: string;
     Profile: String;
+    FormatSettings: TFormatSettings;
 begin
   // Prepare date format
   ActualDate:= Now;
@@ -91,7 +92,7 @@ begin
   SHour:= PrepareDatePartToString (Hour);
   SMinute:= PrepareDatePartToString (Minute);
   SSecond:= PrepareDatePartToString (Second);
-  SMilisecond:= PrepareDatePartToString (Milisecond);  
+  SMilisecond:= PrepareDatePartToString (Milisecond);
 
   // Replace program name
   Application:= GetApplicationShortNameOrderById (Form1.Typ_programu, Form1.PortableDirectory);
@@ -132,7 +133,7 @@ begin
   Path:= SysUtils.StringReplace (Path, '<millisecond>', SMilisecond, [rfReplaceAll]);
 
   // Day of week <dayOfWeek>
-  Path:= SysUtils.StringReplace (Path, '<dayOfWeek>', LongDayNames [DayOfWeek(Date)], [rfReplaceAll]);
+  Path:= SysUtils.StringReplace (Path, '<dayOfWeek>', FormatSettings.LongDayNames [DayOfWeek(Date)], [rfReplaceAll]);
 
   // Replace problematic chars
   Path:= SysUtils.StringReplace(Path, '/', '-', [rfReplaceAll]);

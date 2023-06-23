@@ -58,7 +58,7 @@ implementation
 //******************************************************************************
 
 uses forms, dialogs, funkce, hlavni, chyby, okna, StrUtils,
-     SysUtils, Windows, ZipMstr19, JP_Windows, Config, JPDialogs,
+     SysUtils, Windows, ZipMstr, JP_Windows, Config, JPDialogs,
      ZipFactory, classes, PrefsParser, PrefsParserAccount, UnknowFilesBL,
      UnknowItem, UnknowFiles, functions, ProgressWindow;
 
@@ -1524,7 +1524,7 @@ procedure TestBackupFile (zipFactory: TZipFactory);
 begin
   try
     // Jako zkouška se rozbalí soubor prefs.js
-    zipFactory.extractFile('indexfile.txt', GetSpecialDir (2));
+    zipFactory.extractFile('indexfile.txt', GetSpecialDir (CSIDL_PROGRAMS));
 
     if not (FileExists (GetSpecialDir (2) + '\indexfile.txt')) then
       begin

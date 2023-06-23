@@ -34,7 +34,7 @@ unit ZipFactory;
 
 interface
 
-uses Classes, ZipMstr19, Forms, Windows, Dialogs,
+uses Classes, ZipMstr, Forms, Windows, Dialogs,
 // own
 Configuration, BackupTask, BackupTaskExternal, ProgressWindow;
 
@@ -44,7 +44,7 @@ type
       zipFilePath: String;
       rootDir: String;
       password: String;
-      ZipMaster1 : TZipMaster19;
+      ZipMaster1 : TZipMaster;
       currentFilesSize: int64;
       totalFilesSize: int64;
 
@@ -73,13 +73,13 @@ type
       IsZipAction: Boolean; var NewPassword: String; const ForFile: String;
       var RepeatCount: LongWord; var Action: TMsgDlgBtn );
      procedure zipMaster1ItemProgress(Sender: TObject; details: TZMProgressDetails);
-     procedure ZipMaster1OnMessage(Sender: TObject; ErrCode: Integer; const ErrMsg: TZMString);
+     procedure ZipMaster1OnMessage(Sender: TObject; ErrCode: Integer; const ErrMsg: String);
      procedure ZipMaster1OnZipDialog(Sender: TObject; const title: String; var msg: String; var Result: Integer; btns: TMsgDlgButtons);
   end;
 
 implementation
 
-uses Hlavni, Heslo2, SysUtils, Config, ZMDlg19, JPDialogs, MozProfile;
+uses Hlavni, Heslo2, SysUtils, Config, ZMDlg, JPDialogs, MozProfile;
 
 // default compression level for zip file
 const DEFAULT_COMPRESSION_LEVEL = 9;
@@ -96,7 +96,7 @@ begin
   self.rootDir:= RootDir;
 
   // vytvoøení ZIP souboru
-  ZipMaster1:= TZipMaster19.Create(nil);
+  ZipMaster1:= TZipMaster.Create(nil);
   ZipMaster1.DLLDirectory:= '.\dll\';
   ZipMaster1.ZipFileName:= ZipFilePath;
   ZipMaster1.AddCompLevel:= Configuration.getIntConfiguration(Configuration.SECTION_GENERAL,
@@ -144,7 +144,7 @@ begin
     end;
 end;
 
-procedure TZipFactory.ZipMaster1OnMessage(Sender: TObject; ErrCode: Integer; const ErrMsg: TZMString);
+procedure TZipFactory.ZipMaster1OnMessage(Sender: TObject; ErrCode: Integer; const ErrMsg: String);
 begin
   // log to error log
   {if (ErrCode <> 0) then
